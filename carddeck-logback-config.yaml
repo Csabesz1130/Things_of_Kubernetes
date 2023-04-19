@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carddeck-webapp-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: carddeck-webapp
+  template:
+    metadata:
+      labels:
+        app: carddeck-webapp
+    spec:
+      containers:
+      - name: carddeck-webapp
+        image: your-registry/carddeck-webapp:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: logback-config
+          mountPath: /usr/local/tomcat/conf/logback.xml
+          subPath: logback.xml
+      volumes:
+      - name: logback-config
+        configMap:
+          name: carddeck-webapp-logback-config
+          items:
+          - key: logback-config.yaml
+            path: logback.xml
