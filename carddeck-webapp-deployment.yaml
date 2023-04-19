@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carddeck-webapp-deployment
+  labels:
+    app: carddeck-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: carddeck-webapp
+  template:
+    metadata:
+      labels:
+        app: carddeck-webapp
+    spec:
+      containers:
+      - name: carddeck-webapp-container
+        image: your-registry/carddeck-webapp:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: your-db-host
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: your-db-name
+        - name: DB_USERNAME
+          value: your-db-username
+        - name: DB_PASSWORD
+          value: your-db-password
