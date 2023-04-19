@@ -1,0 +1,15 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: pod-health-check
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: pod-health-check
+            image: <your-docker-image>
+            command: ["/bin/bash", "/path/to/pod_health_check.sh"]
+          restartPolicy: Never
