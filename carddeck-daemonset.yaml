@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: carddeck-webapp-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: carddeck-webapp
+  template:
+    metadata:
+      labels:
+        app: carddeck-webapp
+    spec:
+      containers:
+      - name: carddeck-webapp
+        image: your-registry/your-image:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: your-database-url
